@@ -28,8 +28,12 @@ import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
  */
 public class ConnectionTest {
 	
+	//TODO Get server login information from config file.
+	private String serverIp = "";
+	private String serverUserName = "";
+	private String serverUserPassword = "";
 	private String nickname = "PutPotBot";
-	private String nickname2 = "PotPutBot";
+	private String nickname2 = "PotPutBot"; //To avoid name conflict in case query timed out.
 	final TS3Api api;
 
 	/**
@@ -38,9 +42,9 @@ public class ConnectionTest {
 	public ConnectionTest() {
 		// TODO Auto-generated constructor stub
 		final TS3Config config = new TS3Config();
-		config.setHost("THE IP");
+		config.setHost(serverIp);
 		config.setDebugLevel(Level.ALL);
-		config.setLoginCredentials("SERVERUSERNAME", "SERVERUSERPASSWORD");
+		config.setLoginCredentials(serverUserName, serverUserPassword);
 
 		final TS3Query query = new TS3Query(config);
 		query.connect();
