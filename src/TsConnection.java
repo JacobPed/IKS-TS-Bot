@@ -16,6 +16,7 @@ import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 public class TsConnection {
 	final TS3Api api;
     //TODO Get server login information from config file.
+	private String serverIp = "";
 	private String serverUserName = "";
 	private String serverUserPassword = "";
 	private String nickname = "PutPotBot";
