@@ -21,7 +21,7 @@ import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
  * @author Jacob
  *
  */
-public class ConnectionTest {
+public class Main {
 
 	TsConnection tsConnection;
 	private TS3Api api;
@@ -30,16 +30,18 @@ public class ConnectionTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new ConnectionTest(args);
+		new Main(args);
 	}
 
 	/**
 	 * 
-	 */private ConnectionTest(String[] input) {
+	 */
+	private Main(String[] input) {
 		 tsConnection = new TsConnection();
 		 api = tsConnection.getApi();
 		 
 		 api.sendChannelMessage("Greetings. You're beloved " + tsConnection.getNickname() + " is online!");
+		 api.sendChannelMessage(System.getProperty("user.dir"));
 		 for(String s : input) {
 			 api.sendChannelMessage(s);
 	        }
