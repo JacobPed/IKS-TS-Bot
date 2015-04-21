@@ -19,9 +19,9 @@ public class TsUpdater {
 	public TsUpdater() {
 		// TODO Auto-generated constructor stub
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String[] arr = { "Server updated!" };
 		//ConnectionTest.main(arr);
-	}
+	}*/
 
 }
