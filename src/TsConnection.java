@@ -14,6 +14,9 @@ import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
  *
  */
 public class TsConnection {
+	//Lovely usefull git command: 
+	//Ignore this file: git update-index --assume-unchanged TsConnection.java
+	//Undo ignore file: git update-index --no-assume-unchanged TsConnection.java
 	final TS3Api api;
     //TODO Get server login information from config file.
 	private String serverIp = "";
