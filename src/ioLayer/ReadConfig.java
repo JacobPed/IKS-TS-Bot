@@ -1,8 +1,11 @@
 /**
+ * Read config that specifies program parameters.
  * 
+ * Note! This code doesn't work as intended, and is only here to be available to be continued work on, for when it would be useful for a config again. It's no longer a priority.
  */
 package ioLayer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,9 +18,9 @@ import java.util.Properties;
  *
  */
 public class ReadConfig {
-
+	
 	//TODO Retrieve configPath and configName from requesting class.
-	private final String configPath = ""; //Path to the folder which the config lies within. Example: "C://EJ_Service"
+	private String configPath = ""; //Path to the folder which the config lies within. Example: "C://EJ_Service"
 	private final String configName = "config.properties"; //The name of the config file.
 	private HashMap<String, String> properties;
 
@@ -27,6 +30,7 @@ public class ReadConfig {
 	 */
 	public ReadConfig() throws IOException {
 		// TODO Auto-generated constructor stub
+		//configPath = System.getProperty("user.dir") + "//resources";
 		loadProperties();
 	}
 
@@ -35,12 +39,14 @@ public class ReadConfig {
 		Properties prop = new Properties();
 		InputStream inputStream = null;
 
-		try(FileInputStream InputStream = new FileInputStream(configPath + "//" + configName)) {
+		File file = new File(configPath + "/" + configName);
+		try(FileInputStream InputStream = new FileInputStream(file)) {
 			System.out.println("Config File loaded sucessfully!");
 			prop.load(inputStream);
 			properties = new HashMap<String, String>();
 			for(String key : prop.stringPropertyNames()) { //iterates through the properties file and gets a key.
 				properties.put(key, prop.getProperty(key)); //Put the key and it's value in the table
+				System.out.println(key + prop.getProperty(key));
 			}
 		}
 		catch(FileNotFoundException  e) {

@@ -41,7 +41,6 @@ public class Main {
 		 api = tsConnection.getApi();
 		 
 		 api.sendChannelMessage("Greetings. You're beloved " + tsConnection.getNickname() + " is online!");
-		 api.sendChannelMessage(System.getProperty("user.dir"));
 		 for(String s : input) {
 			 api.sendChannelMessage(s);
 	        }
