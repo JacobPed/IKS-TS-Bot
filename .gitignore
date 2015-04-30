@@ -15,3 +15,6 @@ hs_err_pid*
 .classpath
 .project
 src/TsConnection.java
+.idea/
+IKS-TS-Bot.eml
+IKS-TS-Bot.iml
