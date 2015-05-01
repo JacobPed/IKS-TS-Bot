@@ -14,7 +14,7 @@ public interface IFDBClient {
 
     // Check if client exist
     public boolean existClient(String uniqueID);
-    
+
     // find one Client by UniqueID
     public Client findClientByID(String uniqueID);
 
