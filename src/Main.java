@@ -137,6 +137,9 @@ public class Main {
 			 if(nickname.contains("ray")) {
 				 api.sendChannelMessage("Greetings my master, and welcome home.");
 			 }
+			 else if(nickname.contains("steve")) {
+				 api.sendChannelMessage("Greetings you silly, silly (almost) danish talking gentleman..");
+			 }
 			 else if(nickname.contains("rena") || nickname.contains("alleice")) {
 				 api.sendChannelMessage("Greetings o' american visitor from the magical islands");
 			 }
