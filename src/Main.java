@@ -40,7 +40,7 @@ public class Main {
 		 tsConnection = new TsConnection();
 		 api = tsConnection.getApi();
 		 
-		 api.sendChannelMessage("Greetings. You're beloved " + tsConnection.getNickname() + " is online!");
+		 api.sendChannelMessage("Greetings. Your beloved " + tsConnection.getNickname() + " is online!");
 		 for(String s : input) {
 			 api.sendChannelMessage(s);
 	        }
@@ -73,7 +73,7 @@ public class Main {
 						 api.sendChannelMessage("Greetings " + e.getInvokerName());
 					 }
 					 if(e.getMessage().toLowerCase().contains("!exit")) {
-						 api.sendChannelMessage("Goodby.");
+						 api.sendChannelMessage("Goodbye.");
 						 System.exit(0);
 					 }
 				 }
@@ -141,7 +141,13 @@ public class Main {
 				 api.sendChannelMessage("Greetings you silly, silly (almost) danish talking gentleman..");
 			 }
 			 else if(nickname.contains("rena") || nickname.contains("alleice")) {
-				 api.sendChannelMessage("Greetings o' american visitor from the magical islands");
+				 api.sendChannelMessage("Greetings, o' american visitor from the magical islands");
+			 }
+			 else if(nickname.contains("chifilly")) {
+				 api.sendChannelMessage("Greetings, silly script kid!");
+			 }
+			 else if(nickname.contains("q11")) {
+				 api.sendChannelMessage("*sigh* It's that guy again..");
 			 }
 		 }
 	 }	
