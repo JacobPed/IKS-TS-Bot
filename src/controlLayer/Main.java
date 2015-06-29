@@ -1,4 +1,6 @@
-import modelLayer.ServerGroup;
+package controlLayer;
+
+import modelLayer.TsConnection;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.TextMessageTargetMode;
@@ -15,6 +17,7 @@ import com.github.theholywaffle.teamspeak3.api.event.ServerEditedEvent;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 
+
 /**
  * 
  */
@@ -25,8 +28,9 @@ import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
  */
 public class Main {
 
-	TsConnection tsConnection;
 	private TS3Api api;
+	ClientController clientController;
+	ComplaintsCheck complaintsCheck;
 
 	/**
 	 * @param args
@@ -39,10 +43,13 @@ public class Main {
 	 * 
 	 */
 	private Main(String[] input) {
-		tsConnection = new TsConnection();
+		TsConnection tsConnection = new TsConnection();
 		api = tsConnection.getApi();
-
+		clientController = new ClientController(api);
+		//complaintsCheck = new ComplaintsCheck(api);
+		//System.out.println("Client type is: " + api.getClientByUId(api.getDatabaseClientInfo(867).getUniqueIdentifier()).getType());
 		api.sendChannelMessage("Greetings. Your beloved " + tsConnection.getNickname() + " is online!");
+		
 		for(String s : input) {
 			api.sendChannelMessage(s);
 		}
@@ -80,7 +87,7 @@ public class Main {
 				if(e.getClientTargetId() == 26) {
 					funnyMessagesForChannel(e.getClientId());
 				}
-				if(isServerGroupOwner(clientId)) {
+				if(clientController.isClientServerGroupOwner(clientId)) {
 					clientWelcomeMessage(clientId);
 				}
 			}
@@ -98,7 +105,7 @@ public class Main {
 				if(targetId == 26) {
 					funnyMessagesForChannel(clientId);
 				}
-				else if(targetId == 30 && isServerGroupOwner(clientId)) {
+				else if(targetId == 30 && clientController.isClientServerGroupOwner(clientId)) {
 					clientWelcomeMessage(clientId);
 				}
 			}
@@ -155,23 +162,19 @@ public class Main {
 			api.sendChannelMessage("*sigh* It's that guy again..");
 		}
 	}
-	
+
 	private void clientWelcomeMessage(int clientId) {
-		api.sendPrivateMessage(clientId, "Do you see me? I can't do much more that this atm. But it's okay to love me anyway..");
+		api.sendPrivateMessage(clientId, "Do you see me? I can't do much more than this atm. But it's okay to love me anyway..");
 	}
-	
-	/**
-	 * Checks if the given user is member of the server group owner
-	 * @return
-	 */
-	private boolean isServerGroupOwner(int clientId) {
-		int[] clientGroups = api.getClientInfo(clientId).getServerGroups();
-		for(int i = 0; i < clientGroups.length; i++) {
-			if(clientGroups[i] == ServerGroup.owner.getIndex()) {
-				return true;
+
+	public static void reportBotError(String message) {
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				//TODO send message to all online owners
+				//TODO Send email to bot administrator
 			}
-		}
-		return false;
+		});
+		thread.start();
 	}
 
 }
