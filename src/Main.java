@@ -132,7 +132,7 @@ public class Main {
 	 }
 
 	 private void clientMoveMessages(int targetId, int clientId) {
-		 if(targetId == 26) {
+		 if(targetId == tsConnection.getDefaultServerChannel()) {
 			 String nickname = api.getClientInfo(clientId).getNickname().toLowerCase();
 			 if(nickname.contains("ray")) {
 				 api.sendChannelMessage("Greetings my master, and welcome home.");

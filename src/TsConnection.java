@@ -53,4 +53,8 @@ public class TsConnection {
 	public String getNickname() {
 		return nickname;
 	}
+	
+	public int getDefaultServerChannel() {
+		return defaultServerChannel;
+	}
 }
