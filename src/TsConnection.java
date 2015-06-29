@@ -22,8 +22,10 @@ public class TsConnection {
 	private String serverIp = "";
 	private String serverUserName = "";
 	private String serverUserPassword = "";
+	private int virtualServerId = 1; //Normally 1 if you only have one server instance.
+	private int defaultServerChannel = 30;
 	private String nickname = "PutPotBot";
-	private String nickname2 = "PotPutBot";
+	private String nickname2 = "PotPutBot"; //In case nickname already is taken. For example if the bot timed out. TODO make dynamic.
 
 	public TsConnection() {
 		final TS3Config config = new TS3Config();
@@ -35,14 +37,13 @@ public class TsConnection {
 		query.connect();
 
 		api = query.getApi();
-		api.selectVirtualServerById(1);
-		//api.setNickname("PutOBot");
-		Client cStart = api.getClientByNameExact(nickname, false);
+		api.selectVirtualServerById(virtualServerId);
+		Client cStart = api.getClientByNameExact(nickname, false); //Checks if there's already a bot connected with the specified nickname.
 		if(cStart != null) {
-			nickname = nickname2;
+			nickname = nickname2; //Switches to the reserve nickname.
 		}
 		api.setNickname(nickname);
-		api.moveClient(26);
+		api.moveClient(defaultServerChannel); //Moves the bot to the specified channel.
 	}
 	
 	public TS3Api getApi() {
