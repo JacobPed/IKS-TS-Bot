@@ -1,3 +1,0 @@
-[submodule "lib/TSapi"]
-	path = lib/TSapi
-	url = git://github.com/TheHolyWaffle/TeamSpeak-3-Java-API.git
