@@ -1,5 +1,5 @@
 /**
- * Created by jacob on 5/27/17.
+ * Created by jacob on 2017-05-27 (YYYY-MM-DD).
  */
 class Slave {
 
