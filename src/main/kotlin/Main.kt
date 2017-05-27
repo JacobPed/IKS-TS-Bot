@@ -6,6 +6,10 @@ fun main(args: Array<String>) {
     println("Hello, world!")
     // Create Master
     val m = Master(GetConfig())
+    while (m.isConnected()) {
+        Thread.yield()
+    }
+    println("No longer connected")
 //    Thread.sleep(1000)
 //    m.close()
 }

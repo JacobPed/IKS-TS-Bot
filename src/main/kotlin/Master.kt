@@ -1,39 +1,36 @@
-import com.github.theholywaffle.teamspeak3.TS3Api
-import com.github.theholywaffle.teamspeak3.TS3Config
-import com.github.theholywaffle.teamspeak3.TS3Query
+import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter
+import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent
 
 /**
  * Created by jacob on 2017-05-27 (YYYY-MM-DD).
  */
-class Master: AutoCloseable {
-    val config: Config
-    val query: TS3Query
-    val api: TS3Api
-    val serverName: String
+class Master: TeamSpeakBot {
 
-    constructor(config: Config){
-        this.config = config
-        this.query = TS3Query(config)
-        query.connect()
-        this.api  = query.api
-
-        api.login(config.LoginName, config.LoginPassword)
-//        val virtualServer = api.virtualServers.first()
-//        serverName = virtualServer.name
-        api.selectVirtualServerById(1)
-        serverName = api.serverInfo.name
-        api.setNickname(config.NickName)
+    constructor(config: Config): super(config){
         setupEventListeners()
-        api.sendChannelMessage("${config.NickName} is online!")
+        setupSlaves()
     }
 
-    fun setupEventListeners() {
+    private fun setupSlaves() {
+        val channels = api.channels
+        for (c in channels) {
+            // TODO: Create a new bot slave for each channel
+        }
+    }
 
+    private fun setupEventListeners() {
+        api.registerAllEvents()
+        api.addTS3Listeners(object: TS3EventAdapter() {
+            override fun onTextMessage(e: TextMessageEvent) {
+                println("Message received: ${e.message}")
+                if (e.message == "exit")
+                    close()
+            }
+        })
     }
 
     override fun close() {
         //TODO: terminate all slave instances
-        query.exit()
-        println("Master terminated - Server: $serverName")
+        super.close()
     }
 }
