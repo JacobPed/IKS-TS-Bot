@@ -1,3 +1,7 @@
+import com.natpryce.konfig.*
+import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties
+import java.io.File
+
 /**
  * Created by jacob on 2017-05-27 (YYYY-MM-DD).
  */
@@ -11,15 +15,23 @@ fun main(args: Array<String>) {
     }
     println("No longer connected")
 //    Thread.sleep(1000)
-//    m.close()
+    m.close()
 }
 
 fun GetConfig(): Config {
-    val LoginName = "BotUserName"
-    val LoginPassword = "SomePassword"
-//    val config = Config(LoginName, LoginPassword)
-    val config = Config("IKSBot", "gS1uFlRu") // Test login. TODO: Config should be derived from a file.
-    config.setHost("localhost")
-    config.NickName = "TsBot"
+    val file = File("../teamspeakbot.properties")
+    val configFile =
+            if(file.canRead())
+                ConfigurationProperties.fromFile(file)
+            else {
+                println("Couldn't read config file. Loading default.")
+                ConfigurationProperties.fromResource("defaults.properties")
+            }
+
+    val loginName = configFile[server.loginName]
+    val loginPassword = configFile[server.loginPassword]
+    val config = Config(loginName, loginPassword)
+    config.setHost(configFile[server.host])
+    config.NickName = configFile[server.nickName]
     return config
 }

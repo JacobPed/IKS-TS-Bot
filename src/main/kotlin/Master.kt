@@ -25,6 +25,8 @@ class Master: TeamSpeakBot {
                 println("Message received: ${e.message}")
                 if (e.message == "exit")
                     close()
+                else if(e.message == "ping")
+                    sendMessage("pong")
             }
         })
     }
