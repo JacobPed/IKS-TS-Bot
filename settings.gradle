@@ -1,0 +1,3 @@
+rootProject.name = 'iks-teamspeakbot'
+include 'main'
+
