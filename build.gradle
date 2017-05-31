@@ -6,6 +6,7 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -23,4 +24,10 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "com.github.theholywaffle:teamspeak3-api:1.+"
     compile "com.natpryce:konfig:1.+"
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
 }

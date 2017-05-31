@@ -15,7 +15,8 @@ abstract class TeamSpeakBot: ITeamSpeakBot {
     protected val api: TS3Api
     protected val serverName: String
 
-    constructor(config: Config) {
+    //It doesn't seem feasible to make it possible to perform Unit testing for the methods, as the used framework doesn't allow dependency injection.
+    constructor(config: Config) { //The framework requires config to be given as part of constructor..
         this.config = config
         this.query = TS3Query(config)
         query.connect()

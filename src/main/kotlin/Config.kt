@@ -9,7 +9,8 @@ import com.natpryce.konfig.stringType
 class Config(
         val LoginName:String,
         val LoginPassword:String,
-        var NickName:String = "TsBot")
+        var NickName:String = "TsBot",
+        val ChannelId:Int = 0)
     : TS3Config()
 
 object server : PropertyGroup() {
