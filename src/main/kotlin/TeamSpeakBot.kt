@@ -1,21 +1,25 @@
 import com.github.theholywaffle.teamspeak3.TS3Api
 import com.github.theholywaffle.teamspeak3.TS3Query
-import kotlin.concurrent.thread
+import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter
+import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent
+import java.util.*
 
 /**
  * Created by jacob on 2017-05-27 (YYYY-MM-DD).
  */
-abstract class TeamSpeakBot: ITeamSpeakBot {
+class TeamSpeakBot: ITeamSpeakBot {
+    private val eventQueue = LinkedList<Object>()
     // Public properties
     var channelId: Int
 
     // Protected properties
-    protected val config: Config
-    protected val query: TS3Query
-    protected val api: TS3Api
-    protected val serverName: String
+    private val config: Config
+    private val query: TS3Query
+    private val api: TS3Api
+    private val serverName: String
 
     //It doesn't seem feasible to make it possible to perform Unit testing for the methods, as the used framework doesn't allow dependency injection.
+    //Perhaps using containers for dependency injection is the way forward here.
     constructor(config: Config) { //The framework requires config to be given as part of constructor..
         this.config = config
         this.query = TS3Query(config)
@@ -27,7 +31,26 @@ abstract class TeamSpeakBot: ITeamSpeakBot {
         api.setNickname(config.NickName)
         this.channelId = api.whoAmI().channelId
         api.sendChannelMessage("${config.NickName} is online!")
+        setupEventListeners()
+
     }
+
+    private fun setupEventListeners() {
+        api.registerAllEvents()
+        api.addTS3Listeners(object: TS3EventAdapter() {
+            override fun onTextMessage(e: TextMessageEvent) {
+                println("Message received: ${e.message}")
+                if (e.message == "exit")
+                    close()
+                else if(e.message == "ping")
+                    sendMessage("pong")
+            }
+        })
+    }
+
+//    override fun connect() {
+//
+//    }
 
     override fun isConnected(): Boolean {
         try {
@@ -67,6 +90,5 @@ abstract class TeamSpeakBot: ITeamSpeakBot {
         query.exit()
         println("${config.NickName} terminated from Server: $serverName")
     }
-
 
 }

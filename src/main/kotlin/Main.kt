@@ -10,13 +10,13 @@ import java.util.*
 fun main(args: Array<String>) {
     println("Hello, world!")
     // Create Master
-    val m = Master(GetConfig())
-    while (m.isConnected()) {
+    val bot = TeamSpeakBot(GetConfig())
+    while (bot.isConnected()) {
         Thread.yield()
     }
     println("No longer connected")
 //    Thread.sleep(1000)
-    m.close()
+    bot.close()
 }
 
 fun GetConfig(): Config {
