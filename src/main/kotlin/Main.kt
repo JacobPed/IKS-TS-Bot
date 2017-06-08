@@ -1,7 +1,6 @@
+import Module.*
 import com.natpryce.konfig.*
-import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties
 import java.io.File
-import java.util.*
 
 /**
  * Created by jacob on 2017-05-27 (YYYY-MM-DD).
@@ -11,6 +10,7 @@ fun main(args: Array<String>) {
     println("Hello, world!")
     // Create Master
     val bot = TeamSpeakBot(GetConfig())
+    bot.addModule(SimpleMath())
     while (bot.isConnected()) {
         Thread.yield()
     }
