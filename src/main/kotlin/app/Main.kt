@@ -1,4 +1,6 @@
-import Module.*
+package app
+
+import modules.*
 import com.natpryce.konfig.*
 import java.io.File
 
@@ -10,7 +12,8 @@ fun main(args: Array<String>) {
     println("Hello, world!")
     // Create Master
     val bot = TeamSpeakBot(GetConfig())
-    bot.addModule(SimpleMath())
+    bot.addModule(StandardCommands(bot))
+    bot.addModule(SimpleMath(bot))
     while (bot.isConnected()) {
         Thread.yield()
     }

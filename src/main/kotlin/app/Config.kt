@@ -1,3 +1,5 @@
+package app
+
 import com.github.theholywaffle.teamspeak3.TS3Config
 import com.natpryce.konfig.PropertyGroup
 import com.natpryce.konfig.getValue
