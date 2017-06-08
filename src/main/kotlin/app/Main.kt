@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     // Create Master
     val bot = TeamSpeakBot(GetConfig())
     bot.addModule(StandardCommands(bot))
-    bot.addModule(SimpleMath(bot))
+//    bot.addModule(SimpleMath(bot))
     while (bot.isConnected()) {
         Thread.yield()
     }

@@ -13,7 +13,6 @@ abstract class AbstractModule {
         masterBot = bot
     }
 
-    open fun OnMessage(message: String) {}
     open fun OnMessage(message: Message) {}
 }
 
