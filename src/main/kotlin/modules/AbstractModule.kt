@@ -1,5 +1,7 @@
 package modules
 
+import app.ICommand
+import app.IMessage
 import app.ITeamSpeakBot
 
 /**
@@ -13,15 +15,8 @@ abstract class AbstractModule {
         masterBot = bot
     }
 
-    open fun OnMessage(message: Message) {}
+    open fun OnMessage(message: IMessage) {}
+
+    open fun OnCommand(command: ICommand) {}
 }
 
-data class Message(
-        val sender: Sender, // No idea what type sender should be atm.
-        val prefix: String,
-        val suffix: String
-)
-
-data class Sender(
-        val uniqueId: String
-)

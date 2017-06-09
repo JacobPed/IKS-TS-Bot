@@ -1,9 +1,8 @@
 package app
 
+import com.github.theholywaffle.teamspeak3.api.event.ClientJoinEvent
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent
 import modules.AbstractModule
-import modules.Message
-import modules.Sender
 
 /**
  * Created by jacob on 2017-05-27 (YYYY-MM-DD).
@@ -47,6 +46,9 @@ class TeamSpeakBot: ITeamSpeakBot {
                 println("Message received: ${e.message}")
 //                else if(e.message == "ping")
 //                    sendMessage("pong")
+                val sender = (object: ISender{
+                    override val uniqueId: String = e.invokerUniqueId
+                })
                 if(e.message.first() == '!') { // if !, then it's a command
                     val message = e.message.trimStart('!')//.trimEnd(' ')
                     if(message == "exit") close()
@@ -63,9 +65,22 @@ class TeamSpeakBot: ITeamSpeakBot {
                                 else ""
                         println("Prefix: $prefix")
                         println("Suffix: $suffix")
-                        val message = Message(Sender(e.invokerUniqueId), prefix, suffix)
-                        commandPrefixes.get(prefix)?.OnMessage(message)
+                        val command = (object: ICommand {
+                            override val prefix: String = prefix
+                            override val suffix: String = suffix
+                            override val sender: ISender = sender
+                        })
+//                        val message = Message(Sender(e.invokerUniqueId), prefix, suffix)
+//                        val message: Message = e as Message
+                        commandPrefixes.get(prefix)?.OnCommand(command)
                     }
+                }
+                else {
+                    val message = (object: IMessage {
+                        override val message: String = e.message
+                        override val sender: ISender = sender
+                    })
+                    modules.forEach { module -> module.OnMessage(message) }
                 }
             }
         })

@@ -1,5 +1,6 @@
 package modules
 
+import app.ICommand
 import app.ITeamSpeakBot
 
 /**
@@ -8,8 +9,8 @@ import app.ITeamSpeakBot
 class StandardCommands(bot: ITeamSpeakBot) : AbstractModule(bot) {
     override val CommandPrefixes = arrayOf("ping")
 
-    override fun OnMessage(message: Message) {
-        if(message.prefix == "ping")
+    override fun OnCommand(command: ICommand) {
+        if(command.prefix == "ping")
             masterBot.sendMessage("pong")
     }
 }
