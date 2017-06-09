@@ -9,7 +9,7 @@ import app.ITeamSpeakBot
 class StandardCommands(bot: ITeamSpeakBot) : AbstractModule(bot) {
     override val CommandPrefixes = arrayOf("ping")
 
-    override fun OnCommand(command: ICommand) {
+    override fun onCommand(command: ICommand) {
         if(command.prefix == "ping")
             masterBot.sendMessage("pong")
     }

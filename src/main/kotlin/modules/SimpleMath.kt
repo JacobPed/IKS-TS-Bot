@@ -9,7 +9,7 @@ import app.ITeamSpeakBot
 class SimpleMath(bot: ITeamSpeakBot) : AbstractModule(bot) {
     override val CommandPrefixes = arrayOf("math", "stuff")
 
-    override fun OnMessage(message: IMessage) {
+    override fun onMessage(message: IMessage) {
         println(message.message)
     }
 }

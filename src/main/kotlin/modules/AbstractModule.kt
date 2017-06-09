@@ -16,10 +16,9 @@ abstract class AbstractModule {
         masterBot = bot
     }
 
-    open fun OnMessage(message: IMessage) {}
+    open fun onMessage(message: IMessage) {}
 
-    open fun OnCommand(command: ICommand) {}
+    open fun onCommand(command: ICommand) {}
 
-    open fun OnClientJoin(client: IClient) {}
+    open fun onClientJoin(client: IClient) {}
 }
-

@@ -72,7 +72,7 @@ class TeamSpeakBot: ITeamSpeakBot {
                         })
 //                        val message = Message(Sender(e.invokerUniqueId), prefix, suffix)
 //                        val message: Message = e as Message
-                        commandPrefixes[prefix]?.OnCommand(command)
+                        commandPrefixes[prefix]?.onCommand(command)
                     }
                 }
                 else {
@@ -80,13 +80,13 @@ class TeamSpeakBot: ITeamSpeakBot {
                         override val message: String = e.message
                         override val sender: ISender = sender
                     })
-                    modules.forEach { module -> module.OnMessage(message) }
+                    modules.forEach { module -> module.onMessage(message) }
                 }
             }
 
             override fun onClientJoin(e: ClientJoinEvent) {
                 val client = InheritedClient(e)
-                modules.forEach { module -> module.OnClientJoin(client)}
+                modules.forEach { module -> module.onClientJoin(client)}
             }
         })
     }
