@@ -1,5 +1,6 @@
 package app
 
+import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter
 import com.github.theholywaffle.teamspeak3.api.event.ClientJoinEvent
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent
 import modules.AbstractModule
@@ -32,16 +33,15 @@ class TeamSpeakBot: ITeamSpeakBot {
         serverName = api.serverInfo.name
         api.setNickname(config.NickName)
         this.channelId = api.whoAmI().channelId
-        api.sendChannelMessage("${config.NickName} is online!")
         modules = mutableListOf<modules.AbstractModule>()
         commandPrefixes = hashMapOf<String, modules.AbstractModule>()
         setupEventListeners()
-
+        api.sendChannelMessage("${config.NickName} is online!")
     }
 
     private fun setupEventListeners() {
         api.registerAllEvents()
-        api.addTS3Listeners(object: com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter() {
+        api.addTS3Listeners(object: TS3EventAdapter() {
             override fun onTextMessage(e: TextMessageEvent) {
                 println("Message received: ${e.message}")
 //                else if(e.message == "ping")
@@ -72,7 +72,7 @@ class TeamSpeakBot: ITeamSpeakBot {
                         })
 //                        val message = Message(Sender(e.invokerUniqueId), prefix, suffix)
 //                        val message: Message = e as Message
-                        commandPrefixes.get(prefix)?.OnCommand(command)
+                        commandPrefixes[prefix]?.OnCommand(command)
                     }
                 }
                 else {
@@ -82,6 +82,11 @@ class TeamSpeakBot: ITeamSpeakBot {
                     })
                     modules.forEach { module -> module.OnMessage(message) }
                 }
+            }
+
+            override fun onClientJoin(e: ClientJoinEvent) {
+                val client = InheritedClient(e)
+                modules.forEach { module -> module.OnClientJoin(client)}
             }
         })
     }

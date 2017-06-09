@@ -1,5 +1,6 @@
 package modules
 
+import app.IClient
 import app.ICommand
 import app.IMessage
 import app.ITeamSpeakBot
@@ -18,5 +19,7 @@ abstract class AbstractModule {
     open fun OnMessage(message: IMessage) {}
 
     open fun OnCommand(command: ICommand) {}
+
+    open fun OnClientJoin(client: IClient) {}
 }
 
