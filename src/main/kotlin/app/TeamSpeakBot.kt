@@ -2,6 +2,7 @@ package app
 
 import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter
 import com.github.theholywaffle.teamspeak3.api.event.ClientJoinEvent
+import com.github.theholywaffle.teamspeak3.api.event.ClientMovedEvent
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent
 import modules.AbstractModule
 
@@ -70,8 +71,6 @@ class TeamSpeakBot: ITeamSpeakBot {
                             override val suffix: String = suffix
                             override val sender: ISender = sender
                         })
-//                        val message = Message(Sender(e.invokerUniqueId), prefix, suffix)
-//                        val message: Message = e as Message
                         commandPrefixes[prefix]?.onCommand(command)
                     }
                 }
@@ -85,8 +84,15 @@ class TeamSpeakBot: ITeamSpeakBot {
             }
 
             override fun onClientJoin(e: ClientJoinEvent) {
-                val client = InheritedClient(e)
-                modules.forEach { module -> module.onClientJoin(client)}
+                val joined = (object: IClientJoined {
+                    override val channelId: Int = e.clientTargetId
+                    override val clientId: Int = e.clientId
+                })
+                modules.forEach { module -> module.onClientJoin(joined)}
+            }
+
+            override fun onClientMoved(e: ClientMovedEvent) {
+
             }
         })
     }

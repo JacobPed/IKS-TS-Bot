@@ -1,9 +1,6 @@
 package modules
 
-import app.IClient
-import app.ICommand
-import app.IMessage
-import app.ITeamSpeakBot
+import app.*
 
 /**
  * Created by jacob on 2017-06-08 (YYYY-MM-DD).
@@ -20,5 +17,5 @@ abstract class AbstractModule {
 
     open fun onCommand(command: ICommand) {}
 
-    open fun onClientJoin(client: IClient) {}
+    open fun onClientJoin(joined: IClientJoined) {}
 }

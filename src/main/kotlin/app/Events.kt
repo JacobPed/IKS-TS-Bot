@@ -20,10 +20,20 @@ interface IMessage {
     val message: String
 }
 
+interface IClientJoined {
+    val clientId: Int
+    val channelId: Int
+}
+
+interface IMoved {
+    val channelIdMovedTo: Int
+    val clientId: Int
+}
+
 interface IClient { //This might be missing relations to channel
+    val id: Int // The clients current instance id.
     val uniqueId: String
     val databaseId: Int
-    val id: Int //Maybe this is meant to be channel id? //TODO: find out if this is the channel id.
     val nickName: String
     val channelGroupId: Int
 //    val type: //The framework value is Int, which doesn't make any sense.
