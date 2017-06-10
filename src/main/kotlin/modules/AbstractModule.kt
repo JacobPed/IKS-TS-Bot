@@ -7,7 +7,7 @@ import app.*
  */
 abstract class AbstractModule {
     val tsConnection: ITsConnection
-    abstract val CommandPrefixes: Array<String>
+    open val CommandPrefixes: List<String> = listOf()
 
     constructor(tsConnection: ITsConnection) {
         this.tsConnection = tsConnection
