@@ -10,16 +10,22 @@ import java.io.File
 
 fun main(args: Array<String>) {
     println("Hello, world!")
-    // Create Master
-    val bot = TeamSpeakBot(GetConfig())
-    bot.addModule(StandardCommands(bot))
+    // Setup connection and event handler
+    val tsConnection = TsConnection(GetConfig())
+    val eventHandler = EventHandler(tsConnection)
+    tsConnection.setupEventListeners(eventHandler)
+    eventHandler.addModule(StandardCommands(tsConnection))
+    loadModules(eventHandler)
 //    bot.addModule(SimpleMath(bot))
-    while (bot.isConnected()) {
+    while (tsConnection.isConnected()) {
         Thread.yield()
     }
     println("No longer connected")
 //    Thread.sleep(1000)
-    bot.close()
+    tsConnection.close()
+}
+
+fun loadModules(eventHandler: EventHandler) {
 }
 
 fun GetConfig(): Config {

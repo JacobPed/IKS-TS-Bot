@@ -1,16 +1,16 @@
 package modules
 
 import app.ICommand
-import app.ITeamSpeakBot
+import app.ITsConnection
 
 /**
  * Created by jacob on 2017-06-08 (YYYY-MM-DD).
  */
-class StandardCommands(bot: ITeamSpeakBot) : AbstractModule(bot) {
+class StandardCommands(tsConnection: ITsConnection) : AbstractModule(tsConnection) {
     override val CommandPrefixes = arrayOf("ping")
 
     override fun onCommand(command: ICommand) {
         if(command.prefix == "ping")
-            masterBot.sendMessage("pong")
+            tsConnection.sendMessage("pong")
     }
 }

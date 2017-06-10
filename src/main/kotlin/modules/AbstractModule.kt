@@ -6,11 +6,11 @@ import app.*
  * Created by jacob on 2017-06-08 (YYYY-MM-DD).
  */
 abstract class AbstractModule {
-    val masterBot: ITeamSpeakBot
+    val tsConnection: ITsConnection
     abstract val CommandPrefixes: Array<String>
 
-    constructor(bot: ITeamSpeakBot) {
-        masterBot = bot
+    constructor(tsConnection: ITsConnection) {
+        this.tsConnection = tsConnection
     }
 
     open fun onMessage(message: IMessage) {}
